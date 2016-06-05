@@ -87,15 +87,15 @@ if(MUPENPLUSAPI)
 	mupenplus/OpenGL_mupenplus.cpp
   )
 
-  if(BCMHOST)
+  if(BCMHOST OR PANDORA)
     set(GLideN64_SOURCES_UNIX ${GLideN64_SOURCES_UNIX}
         BufferCopy/ColorBufferToRDRAMStub.cpp
     )
-  else(BCMHOST)
+  else(BCMHOST OR PANDORA)
     set(GLideN64_SOURCES_UNIX ${GLideN64_SOURCES_UNIX}
         BufferCopy/ColorBufferToRDRAMDesktop.cpp
     )
-  endif(BCMHOST)
+  endif(BCMHOST OR PANDORA)
 
   set(GLideN64_SOURCES_WIN ${GLideN64_SOURCES_UNIX}
 	common/GLFunctions.cpp
@@ -169,6 +169,7 @@ if(PANDORA)
   -DPANDORA
   -DPowerVR_SGX_540
   -DGLES2
+  -DARM_ASM
    )
 endif(PANDORA)
 
