@@ -123,6 +123,16 @@ if(MUPENPLUSAPI)
 	Graphics/OpenGLContext/mupen64plus/mupen64plus_DisplayWindow.cpp
   )
 
+  if(BCMHOST OR PANDORA)
+    set(GLideN64_SOURCES_UNIX ${GLideN64_SOURCES_UNIX}
+        BufferCopy/ColorBufferToRDRAMStub.cpp
+    )
+  else(BCMHOST OR PANDORA)
+    set(GLideN64_SOURCES_UNIX ${GLideN64_SOURCES_UNIX}
+        BufferCopy/ColorBufferToRDRAMDesktop.cpp
+    )
+  endif(BCMHOST OR PANDORA)
+
   set(GLideN64_SOURCES_WIN ${GLideN64_SOURCES_UNIX}
   )
   set(GLideN64_DLL_NAME mupen64plus-video-GLideN64)
@@ -200,6 +210,8 @@ if(PANDORA)
   -DPANDORA
   -DPowerVR_SGX_540
   -DEGL
+  -DGLES2
+  -DARM_ASM
    )
 endif(PANDORA)
 
