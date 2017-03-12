@@ -92,7 +92,7 @@ SHADER_VERSION
 FRAGMENT_SHADER_END
 "}							                                    \n"
 ;
-
+#ifndef PANDORA
 static const char* seperableBlurShader =
 /// Author:		Nathaniel Meyer
 ///
@@ -301,11 +301,13 @@ ObjectHandle _createFBO(CachedTexture * _pTexture)
 
 PostProcessor::PostProcessor()
 	: m_pResultBuffer(nullptr)
+#ifdef PANDORA
 	, m_FBO_glowMap(0)
 	, m_FBO_blur(0)
 	, m_pTextureOriginal(nullptr)
 	, m_pTextureGlowMap(nullptr)
 	, m_pTextureBlur(nullptr)
+#endif
 {}
 
 void PostProcessor::_initCommon()
@@ -322,7 +324,7 @@ void PostProcessor::_initGammaCorrection()
 {
 	m_gammaCorrectionProgram.reset(gfxContext.createGammaCorrectionShader());
 }
-
+#ifndef PANDORA
 void PostProcessor::_initBlur()
 {
 	/*
@@ -382,15 +384,17 @@ void PostProcessor::_initOrientationCorrection()
 {
 	m_orientationCorrectionProgram.reset(gfxContext.createOrientationCorrectionShader());
 }
-
+#endif
 void PostProcessor::init()
 {
 	_initCommon();
 	_initGammaCorrection();
 	if (config.generalEmulation.enableBlitScreenWorkaround != 0)
 		_initOrientationCorrection();
+#ifndef PANDORA
 	if (config.bloomFilter.enable != 0)
 		_initBlur();
+#endif
 }
 
 void PostProcessor::_destroyCommon()
@@ -410,7 +414,7 @@ void PostProcessor::_destroyOrientationCorrection()
 {
 	m_orientationCorrectionProgram.reset();
 }
-
+#ifndef PANDORA
 void PostProcessor::_destroyBlur()
 {
 	/*
@@ -447,11 +451,13 @@ void PostProcessor::_destroyBlur()
 	m_pTextureBlur = nullptr;
 	*/
 }
-
+#endif
 
 void PostProcessor::destroy()
 {
+#ifndef PANDORA
 	_destroyBlur();
+#endif
 	_destroyGammaCorrection();
 	_destroyOrientationCorrection();
 	_destroyCommon();
@@ -490,7 +496,7 @@ void PostProcessor::_postDraw()
 
 	gfxContext.resetShaderProgram();
 }
-
+#ifndef PANDORA
 FrameBuffer * PostProcessor::doBlur(FrameBuffer * _pBuffer)
 {
 	return _pBuffer;
@@ -568,7 +574,7 @@ FrameBuffer * PostProcessor::doBlur(FrameBuffer * _pBuffer)
 	return m_pResultBuffer;
 	*/
 }
-
+#endif
 FrameBuffer * PostProcessor::doGammaCorrection(FrameBuffer * _pBuffer)
 {
 	if (_pBuffer == nullptr)

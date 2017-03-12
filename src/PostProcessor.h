@@ -14,8 +14,9 @@ class PostProcessor {
 public:
 	void init();
 	void destroy();
-
+#ifndef PANDORA
 	FrameBuffer * doBlur(FrameBuffer * _pBuffer);
+#endif
 	FrameBuffer * doGammaCorrection(FrameBuffer * _pBuffer);
 	FrameBuffer * doOrientationCorrection(FrameBuffer * _pBuffer);
 
@@ -31,8 +32,10 @@ private:
 	void _destroyGammaCorrection();
 	void _initOrientationCorrection();
 	void _destroyOrientationCorrection();
+#ifndef PANDORA
 	void _initBlur();
 	void _destroyBlur();
+#endif
 	void _preDraw(FrameBuffer * _pBuffer);
 	void _postDraw();
 
@@ -40,14 +43,15 @@ private:
 	std::unique_ptr<graphics::ShaderProgram> m_orientationCorrectionProgram;
 
 	FrameBuffer * m_pResultBuffer;
-
+#ifndef PANDORA
 	graphics::ObjectHandle m_FBO_glowMap;
 	graphics::ObjectHandle m_FBO_blur;
-
+#endif
 	CachedTexture * m_pTextureOriginal;
+#ifndef PANDORA
 	CachedTexture * m_pTextureGlowMap;
 	CachedTexture * m_pTextureBlur;
-
+#endif
 #ifdef OS_ANDROID
 	static PostProcessor processor;
 #endif
