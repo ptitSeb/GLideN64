@@ -380,12 +380,12 @@ void PostProcessor::_initBlur()
 	glUseProgram(0);
 	*/
 }
-
+#endif
 void PostProcessor::_initOrientationCorrection()
 {
 	m_orientationCorrectionProgram.reset(gfxContext.createOrientationCorrectionShader());
 }
-#endif
+
 void PostProcessor::init()
 {
 	_initCommon();
