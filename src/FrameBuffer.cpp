@@ -843,8 +843,12 @@ void FrameBufferList::_renderScreenSizeBuffer()
 	GraphicsDrawer & drawer = wnd.getDrawer();
 	FrameBuffer *pBuffer = &m_list.back();
 	PostProcessor & postProcessor = PostProcessor::get();
+#ifdef PANDORA
+	FrameBuffer * pFilteredBuffer = pBuffer;
+#else
 	FrameBuffer * pFilteredBuffer = postProcessor.doBlur(postProcessor.doGammaCorrection(
 		postProcessor.doOrientationCorrection(pBuffer)));
+#endif
 	CachedTexture * pBufferTexture = pFilteredBuffer->m_pTexture;
 
 

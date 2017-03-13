@@ -234,6 +234,7 @@ SHADER_VERSION
 FRAGMENT_SHADER_END
 "}																														\n"
 ;
+#endif
 
 #endif
 
@@ -301,10 +302,10 @@ ObjectHandle _createFBO(CachedTexture * _pTexture)
 
 PostProcessor::PostProcessor()
 	: m_pResultBuffer(nullptr)
-#ifdef PANDORA
+	, m_pTextureOriginal(nullptr)
+#ifndef PANDORA
 	, m_FBO_glowMap(0)
 	, m_FBO_blur(0)
-	, m_pTextureOriginal(nullptr)
 	, m_pTextureGlowMap(nullptr)
 	, m_pTextureBlur(nullptr)
 #endif
