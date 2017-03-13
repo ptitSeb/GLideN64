@@ -93,8 +93,9 @@ CombinerInfo & CombinerInfo::get()
 void CombinerInfo::init()
 {
 	m_pCurrent = nullptr;
+#ifndef PANDORA
 	m_bShaderCacheSupported = config.generalEmulation.enableShadersStorage != 0 && gfxContext.isSupported(SpecialFeatures::ShaderProgramBinary);
-
+#endif
 	m_shadersLoaded = 0;
 	if (m_bShaderCacheSupported && !_loadShadersStorage()) {
 		for (auto cur = m_combiners.begin(); cur != m_combiners.end(); ++cur)

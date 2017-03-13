@@ -28,24 +28,39 @@ void Config::resetToDefaults()
 
 	texture.maxAnisotropy = 0;
 	texture.bilinearMode = BILINEAR_STANDARD;
+#ifdef PANDORA
+	texture.maxBytes = 20 * gc_uMegabyte;
+#else
 	texture.maxBytes = 500 * gc_uMegabyte;
+#endif
 	texture.screenShotFormat = 0;
-
+#ifdef PANDORA
+	generalEmulation.enableLOD = 0;
+	generalEmulation.enableNoise = 0;
+	generalEmulation.enableHWLighting = 1;
+#else
 	generalEmulation.enableLOD = 1;
 	generalEmulation.enableNoise = 1;
 	generalEmulation.enableHWLighting = 0;
+#endif
 	generalEmulation.enableCustomSettings = 1;
 	generalEmulation.enableShadersStorage = 1;
 	generalEmulation.correctTexrectCoords = tcDisable;
 	generalEmulation.enableNativeResTexrects = 0;
 	generalEmulation.enableLegacyBlending = 0;
+#ifdef PANDORA
+	generalEmulation.hacks = 1;
+#else
 	generalEmulation.hacks = 0;
+#endif
 #ifdef OS_ANDROID
 	generalEmulation.enableFragmentDepthWrite = 0;
 	generalEmulation.enableBlitScreenWorkaround = 0;
 	generalEmulation.forcePolygonOffset = 0;
 	generalEmulation.polygonOffsetFactor = 0.0f;
 	generalEmulation.polygonOffsetUnits = 0.0f;
+#elif defined(PANDORA)
+	generalEmulation.enableFragmentDepthWrite = 0;
 #else
 	generalEmulation.enableFragmentDepthWrite = 1;
 #endif

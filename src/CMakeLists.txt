@@ -261,7 +261,11 @@ if(EGL)
   add_definitions(
     -DEGL
    )
-   SET(OPENGL_LIBRARIES -lEGL)
+   if(PANDORA)
+     SET(OPENGL_LIBRARIES -lEGL -lGLESv2)
+   else(PANDORA)
+     SET(OPENGL_LIBRARIES -lEGL)
+   endif(PANDORA)
 else(EGL)
   find_package(OpenGL REQUIRED)
   include_directories(${OpenGL_INCLUDE_DIRS})

@@ -9,6 +9,10 @@
 
 #define GL_GET_PROC_ADR(proc_type, proc_name) g_##proc_name = (proc_type) dlsym(gles2so, #proc_name);
 
+#elif defined(PANDORA)
+
+#define GL_GET_PROC_ADR(proc_type, proc_name) g_##proc_name = (proc_type) dlsym(gles2so, #proc_name);
+
 #elif defined(EGL)
 
 #include <EGL/egl.h>
@@ -189,6 +193,9 @@ void initGLFunctions()
 {
 #ifdef VC
 	void *gles2so = dlopen("/opt/vc/lib/libGLESv2.so", RTLD_NOW);
+#endif
+#ifdef PANDORA
+	void *gles2so = dlopen("/usr/lib/libGLESv2.so", RTLD_NOW);
 #endif
 #ifdef OS_WINDOWS
 	GL_GET_PROC_ADR(PFNGLACTIVETEXTUREPROC, glActiveTexture);

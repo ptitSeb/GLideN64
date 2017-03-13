@@ -151,13 +151,6 @@ namespace glsl {
 		{
 			if (_glinfo.isGLES2) {
 				m_part =
-					"#if (__VERSION__ > 120)																						\n"
-					"# define IN in																									\n"
-					"# define OUT out																								\n"
-					"#else																											\n"
-					"# define IN varying																							\n"
-					"# define OUT																									\n"
-					"#endif // __VERSION __																							\n"
 					"uniform mediump vec4 uTextureBounds;																			\n"
 					"uniform mediump vec2 uTextureSize;																				\n"
 					// 3 point texture filtering.
@@ -221,13 +214,6 @@ namespace glsl {
 		{
 			if (_glinfo.isGLES2) {
 				m_part =
-					"#if (__VERSION__ > 120)																						\n"
-					"# define IN in																									\n"
-					"# define OUT out																								\n"
-					"#else																											\n"
-					"# define IN varying																							\n"
-					"# define OUT																									\n"
-					"#endif // __VERSION __																							\n"
 					"uniform mediump vec4 uTextureBounds;																			\n"
 					"uniform mediump vec2 uTextureSize;																				\n"
 					"#define TEX_OFFSET(off) texture2D(tex, texCoord - (off)/texSize)												\n"
